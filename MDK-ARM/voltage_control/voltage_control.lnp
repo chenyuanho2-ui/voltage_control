@@ -1,0 +1,26 @@
+--cpu Cortex-M3
+"voltage_control\startup_stm32f103xb.o"
+"voltage_control\main.o"
+"voltage_control\gpio.o"
+"voltage_control\i2c.o"
+"voltage_control\usart.o"
+"voltage_control\stm32f1xx_it.o"
+"voltage_control\stm32f1xx_hal_msp.o"
+"voltage_control\stm32f1xx_hal_gpio_ex.o"
+"voltage_control\stm32f1xx_hal_i2c.o"
+"voltage_control\stm32f1xx_hal.o"
+"voltage_control\stm32f1xx_hal_rcc.o"
+"voltage_control\stm32f1xx_hal_rcc_ex.o"
+"voltage_control\stm32f1xx_hal_gpio.o"
+"voltage_control\stm32f1xx_hal_dma.o"
+"voltage_control\stm32f1xx_hal_cortex.o"
+"voltage_control\stm32f1xx_hal_pwr.o"
+"voltage_control\stm32f1xx_hal_flash.o"
+"voltage_control\stm32f1xx_hal_flash_ex.o"
+"voltage_control\stm32f1xx_hal_exti.o"
+"voltage_control\stm32f1xx_hal_uart.o"
+"voltage_control\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "voltage_control\voltage_control.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "voltage_control.map" -o voltage_control\voltage_control.axf
