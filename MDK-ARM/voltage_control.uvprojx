@@ -506,14 +506,14 @@
           <GroupName>Miku666</GroupName>
           <Files>
             <File>
-              <FileName>calibration.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\miku666\H\calibration.h</FilePath>
-            </File>
-            <File>
               <FileName>calibration.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\miku666\C\calibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>instruction.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\miku666\C\instruction.c</FilePath>
             </File>
           </Files>
         </Group>

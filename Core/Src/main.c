@@ -28,6 +28,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "calibration.h" // 引入校准模块
+#include "instruction.h"//引入指令模块
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -161,6 +162,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 printf("System Started. Please enter speed (0-100):\r\n");
+
+Instruction_Init(); // <--- 2. 初始化指令模块
   
   // 开启串口接收中断
   HAL_UART_Receive_IT(&huart1, &rx_data, 1);
@@ -175,41 +178,20 @@ printf("System Started. Please enter speed (0-100):\r\n");
 
     /* USER CODE BEGIN 3 */
 	  
-	  if (cmd_received) {
+	 // 3. 处理串口接收到的命令
+	if (cmd_received) {
         cmd_received = 0;
-        
-        // 解析用户输入的目标转速 (float支持小数，例如输入 50.5)
-        float target_speed = atof((char*)rx_buffer); 
-        
-        if (target_speed < 0) {
-            printf("Error: Speed cannot be negative.\r\n");
-        } 
-        else if (target_speed > 100) {
-            printf("Error: Speed %.2f out of range! Max is 100.\r\n", target_speed);
-        } 
-        else {
-            // --- 核心修改：调用校准函数 ---
-            // 比如你想转 50，校准函数会算出可能只需要输入 48.5
-            float corrected_cmd = Calibration_GetCorrectedValue(target_speed);
-            
-            // 计算 DAC 数值 (0-100 映射到 0-4095)
-            // 使用修正后的值来计算电压
-            uint16_t dac_val = (uint16_t)(corrected_cmd * 40.95f);
-            
-            // 限制 DAC 范围防止溢出
-            if(dac_val > 4095) dac_val = 4095;
-
-            // 设置电压
-            MCP4725_SetVoltage(dac_val, 0); // 0表示不写入EEPROM
-            
-            // 显示信息
-            // 理论电压是给用户看的，所以用 target_speed
-            // 实际输出是给泵看的，用了 corrected_cmd
-            printf("Target: %.2f%%, Corrected CMD: %.2f%%, DAC: %d\r\n", 
-                   target_speed, corrected_cmd, dac_val);
-        }
+        // 直接把接收到的字符串丢给 instruction 模块处理
+        Instruction_Parse((char*)rx_buffer);
     }
-}
+
+    // 4. 执行指令循环（处理渐变和定时）
+    Instruction_Loop();
+    
+    // 注意：不要在 while(1) 里加 HAL_Delay，这会阻塞渐变逻辑
+    // Instruction_Loop 内部已经是非阻塞设计
+  }
+
   /* USER CODE END 3 */
 }
 

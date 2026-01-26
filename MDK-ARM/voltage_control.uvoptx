@@ -444,7 +444,7 @@
 
   <Group>
     <GroupName>Drivers/CMSIS</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -471,12 +471,12 @@
     <File>
       <GroupNumber>5</GroupNumber>
       <FileNumber>22</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\miku666\H\calibration.h</PathWithFileName>
-      <FilenameWithoutPath>calibration.h</FilenameWithoutPath>
+      <PathWithFileName>..\miku666\C\calibration.c</PathWithFileName>
+      <FilenameWithoutPath>calibration.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -487,8 +487,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\miku666\C\calibration.c</PathWithFileName>
-      <FilenameWithoutPath>calibration.c</FilenameWithoutPath>
+      <PathWithFileName>..\miku666\C\instruction.c</PathWithFileName>
+      <FilenameWithoutPath>instruction.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
