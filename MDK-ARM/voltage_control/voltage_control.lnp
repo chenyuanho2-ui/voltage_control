@@ -20,6 +20,7 @@
 "voltage_control\stm32f1xx_hal_exti.o"
 "voltage_control\stm32f1xx_hal_uart.o"
 "voltage_control\system_stm32f1xx.o"
+"voltage_control\calibration.o"
 --library_type=microlib --strict --scatter "voltage_control\voltage_control.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

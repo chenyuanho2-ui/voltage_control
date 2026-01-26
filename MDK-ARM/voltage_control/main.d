@@ -33,3 +33,4 @@ voltage_control\main.o: ../Core/Inc/gpio.h
 voltage_control\main.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
 voltage_control\main.o: D:\keil5\ARM\ARMCC\Bin\..\include\string.h
 voltage_control\main.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+voltage_control\main.o: ..\miku666\H\calibration.h
