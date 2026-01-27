@@ -24,7 +24,10 @@
  * * 提示：所有数值范围为 0.0 - 100.0，指令不区分大小写。
  * ==============================================================================
  */
-
+/*
+ * instruction.c
+ */
+ 
 #include "instruction.h"
 #include "main.h"      
 #include "calibration.h"
@@ -37,32 +40,44 @@
 extern void MCP4725_SetVoltage(uint16_t output, uint8_t writeEEPROM);
 
 // --- 内部变量 ---
-static float current_set_speed = 0.0f; // 当前逻辑设定的目标速度
+static float current_set_speed = 0.0f; 
 
 // 状态标志
-static uint8_t is_paused = 0;           // 暂停标志
-static uint32_t pause_start_tick = 0;   // 暂停开始的时间戳
+static uint8_t is_paused = 0;           
+static uint32_t pause_start_tick = 0;   
+
+// --- 校准模式状态机 ---
+typedef enum {
+    MODE_NORMAL = 0,
+    MODE_CAL_WAIT_CMD,    // 等待用户输入指令值(0-100)
+    MODE_CAL_WAIT_MEASURE // 等待用户输入实际测量值
+} ControlMode_t;
+
+static ControlMode_t sys_mode = MODE_NORMAL;
+static float cal_pending_cmd = 0.0f; // 暂存当前的指令值
 
 // 渐变控制结构体
 typedef struct {
-    uint8_t active;       // 是否正在渐变
-    float start_val;      // 起始值
-    float end_val;        // 终点值
-    uint32_t start_tick;  // 开始时间戳
-    uint32_t duration_ms; // 持续时间
+    uint8_t active;       
+    float start_val;      
+    float end_val;        
+    uint32_t start_tick;  
+    uint32_t duration_ms; 
 } Ramp_t;
 
 // 定时停止结构体
 typedef struct {
-    uint8_t active;       // 是否开启定时
-    uint32_t start_tick;  // 开始计时的时间戳
-    uint32_t delay_ms;    // 延时时长
+    uint8_t active;       
+    uint32_t start_tick;  
+    uint32_t delay_ms;    
 } Timer_t;
 
 static Ramp_t ramp = {0};
 static Timer_t stop_timer = {0};
 
 // --- 内部函数：执行最终的硬件设置 ---
+
+// 1. 应用修正后的速度 (正常模式用)
 static void Apply_Speed(float speed) {
     if (speed < 0.0f) speed = 0.0f;
     if (speed > 100.0f) speed = 100.0f;
@@ -74,15 +89,28 @@ static void Apply_Speed(float speed) {
     MCP4725_SetVoltage(dac_val, 0);
 }
 
+// 2. 应用原始指令值 (校准模式用，不经过校准算法)
+static void Apply_Raw_Speed(float raw_cmd) {
+    if (raw_cmd < 0.0f) raw_cmd = 0.0f;
+    if (raw_cmd > 100.0f) raw_cmd = 100.0f;
+
+    uint16_t dac_val = (uint16_t)(raw_cmd * 40.95f);
+    if (dac_val > 4095) dac_val = 4095;
+
+    MCP4725_SetVoltage(dac_val, 0);
+}
+
 void Instruction_Init(void) {
+    Calibration_Init(); // 初始化校准数据
     current_set_speed = 0.0f;
     ramp.active = 0;
     stop_timer.active = 0;
     is_paused = 0;
+    sys_mode = MODE_NORMAL;
     Apply_Speed(0.0f);
 }
 
-// 辅助函数：解析时间参数 (例如 "t5" 返回 5.0，空字符串返回默认值)
+// 辅助函数：解析时间参数
 static float Parse_Time_Suffix(char* str, float default_val) {
     if (str && *str == 't') {
         return atof(str + 1);
@@ -102,40 +130,85 @@ void Instruction_Parse(char* cmd) {
 
     printf("CMD: %s\r\n", cmd);
 
-    // --- 0. 优先处理特殊单字符命令 ---
+    // --- 0. 全局通用指令 ---
     
-    // [急停] "s" 或 "S" (精确匹配)
-    // 必须放在 "s" 定时指令解析之前
+    // [急停 / 退出校准] "s"
     if (strcasecmp(cmd, "s") == 0) {
-        is_paused = 0;
-        ramp.active = 0;
-        stop_timer.active = 0;
+        if (sys_mode != MODE_NORMAL) {
+            sys_mode = MODE_NORMAL;
+            printf(">> Exit Calibration Mode.\r\n");
+        } else {
+            is_paused = 0;
+            ramp.active = 0;
+            stop_timer.active = 0;
+        }
         current_set_speed = 0.0f;
-        Apply_Speed(0.0f); // 立即归零
+        Apply_Speed(0.0f);
         printf(">> STOP (0)\r\n");
         return;
     }
 
-    // [暂停/继续] "p" 或 "P"
+    // --- 1. 校准模式逻辑 ---
+    
+    // 进入校准模式 "ci"
+    if (strcasecmp(cmd, "ci") == 0) {
+        sys_mode = MODE_CAL_WAIT_CMD;
+        Calibration_Start();
+        Apply_Raw_Speed(0.0f);
+        printf(">> [CAL MODE START]\r\n");
+        printf(">> Please input Command Value (0-100):\r\n");
+        return;
+    }
+
+    // 完成校准 "co"
+    if (strcasecmp(cmd, "co") == 0) {
+        if (sys_mode == MODE_NORMAL) {
+            printf(">> Error: Not in cal mode.\r\n");
+            return;
+        }
+        int count = Calibration_End();
+        sys_mode = MODE_NORMAL;
+        Apply_Speed(0.0f);
+        printf(">> [CAL DONE] Updated %d points.\r\n", count);
+        return;
+    }
+
+    // 处理校准模式下的数值输入
+    if (sys_mode != MODE_NORMAL) {
+        float val = atof(cmd);
+        
+        if (sys_mode == MODE_CAL_WAIT_CMD) {
+            // 用户输入了想要的指令值 (Command)
+            cal_pending_cmd = val;
+            Apply_Raw_Speed(val); // 直接输出电压，不修正
+            sys_mode = MODE_CAL_WAIT_MEASURE;
+            printf(">> Set DAC: %.1f%%. Measure the speed, then input ACTUAL value:\r\n", val);
+        } 
+        else if (sys_mode == MODE_CAL_WAIT_MEASURE) {
+            // 用户输入了看到的实际值 (Measured)
+            Calibration_AddPoint(cal_pending_cmd, val);
+            sys_mode = MODE_CAL_WAIT_CMD;
+            printf(">> Recorded: Cmd=%.1f, Real=%.1f.\r\n", cal_pending_cmd, val);
+            printf(">> Input next Command Value or 'co' to finish:\r\n");
+        }
+        return; // 校准模式下不执行后续的普通指令解析
+    }
+
+    // --- 2. 普通模式指令解析 (原逻辑) ---
+
+    // [暂停/继续] "p"
     if (strcasecmp(cmd, "p") == 0) {
         if (!ramp.active && !stop_timer.active) {
             printf(">> No active process to pause.\r\n");
             return;
         }
-
         if (is_paused) {
-            // == 恢复 (Resume) ==
             is_paused = 0;
-            // 计算暂停了多久
             uint32_t paused_duration = HAL_GetTick() - pause_start_tick;
-            
-            // 补偿开始时间，让进度条"接上"
             if (ramp.active) ramp.start_tick += paused_duration;
             if (stop_timer.active) stop_timer.start_tick += paused_duration;
-            
             printf(">> RESUME\r\n");
         } else {
-            // == 暂停 (Pause) ==
             is_paused = 1;
             pause_start_tick = HAL_GetTick();
             printf(">> PAUSED\r\n");
@@ -143,93 +216,76 @@ void Instruction_Parse(char* cmd) {
         return;
     }
 
-    // 如果输入其他指令，默认取消暂停状态，执行新指令
     if (is_paused) {
         is_paused = 0; 
         printf(">> New cmd received, pause cancelled.\r\n");
     }
 
-    // --- 1. 渐变模式 (包含 '>') ---
+    // 渐变模式 >
     if ((ptr = strchr(cmd, '>')) != NULL) {
         *ptr = '\0'; 
-        val1 = atof(cmd);           // 起始
+        val1 = atof(cmd);
         char* part2 = ptr + 1;
-        
-        // 查找 part2 里有没有 't'
         char* ptr_t = strchr(part2, 't');
         if (ptr_t) {
             *ptr_t = '\0';
-            val2 = atof(part2);     // 终点
-            time_sec = atof(ptr_t + 1); // 时间
+            val2 = atof(part2);
+            time_sec = atof(ptr_t + 1);
         } else {
             val2 = atof(part2);
-            time_sec = 10.0f;       // 默认10s
+            time_sec = 10.0f;
         }
-
         ramp.active = 1;
         ramp.start_val = val1;
         ramp.end_val = val2;
         ramp.duration_ms = (uint32_t)(time_sec * 1000);
         ramp.start_tick = HAL_GetTick();
-        
         current_set_speed = val1;
         printf(">> Ramp: %.1f->%.1f (%.1fs)\r\n", val1, val2, time_sec);
     }
-    // --- 2. 快捷指令 ('+') 50+ / 50+t5 ---
+    // 快捷增 +
     else if ((ptr = strchr(cmd, '+')) != NULL) {
         *ptr = '\0';
         val1 = atof(cmd);
-        
-        // 解析 + 后面的内容
-        time_sec = Parse_Time_Suffix(ptr + 1, 10.0f); // 默认10s
-        
+        time_sec = Parse_Time_Suffix(ptr + 1, 10.0f);
         ramp.active = 1;
         ramp.start_val = val1;
         ramp.end_val = 100.0f;
         ramp.duration_ms = (uint32_t)(time_sec * 1000);
         ramp.start_tick = HAL_GetTick();
-        
         current_set_speed = val1;
         printf(">> Ramp Up: %.1f->100 (%.1fs)\r\n", val1, time_sec);
     }
-    // --- 3. 快捷指令 ('-') 50- / 50-t5 ---
+    // 快捷减 -
     else if ((ptr = strchr(cmd, '-')) != NULL) {
         *ptr = '\0';
         val1 = atof(cmd);
-
-        // 解析 - 后面的内容
-        time_sec = Parse_Time_Suffix(ptr + 1, 10.0f); // 默认10s
-        
+        time_sec = Parse_Time_Suffix(ptr + 1, 10.0f);
         ramp.active = 1;
         ramp.start_val = val1;
         ramp.end_val = 0.0f;
         ramp.duration_ms = (uint32_t)(time_sec * 1000);
         ramp.start_tick = HAL_GetTick();
-        
         current_set_speed = val1;
         printf(">> Ramp Down: %.1f->0 (%.1fs)\r\n", val1, time_sec);
     }
-    // --- 4. 定时指令 ('s') 50s15 / s15 ---
-    // 注意：这里检查的是作为分隔符的 's'，上面已经排除了单独的 "s" 命令
+    // 定时 s
     else if ((ptr = strchr(cmd, 's')) != NULL) {
         *ptr = '\0';
         char* part1 = cmd;
         char* part2 = ptr + 1;
-
         if (strlen(part1) > 0) {
             val1 = atof(part1);
             current_set_speed = val1;
-            ramp.active = 0; // 直接设置速度，取消渐变
+            ramp.active = 0;
         }
-        
         time_sec = atof(part2);
         stop_timer.active = 1;
         stop_timer.delay_ms = (uint32_t)(time_sec * 1000);
         stop_timer.start_tick = HAL_GetTick();
-
         printf(">> Timer: Run %.1f, Stop in %.1fs\r\n", current_set_speed, time_sec);
     }
-    // --- 5. 普通数值 ---
+    // 普通数值
     else {
         val1 = atof(cmd);
         current_set_speed = val1;
@@ -240,18 +296,17 @@ void Instruction_Parse(char* cmd) {
 }
 
 void Instruction_Loop(void) {
-    // 如果处于暂停状态，什么都不做，直接返回
-    // 保持 current_set_speed 不变，硬件输出维持在暂停时的电压
-    if (is_paused) {
-        return; 
+    // 校准模式下不执行自动刷新逻辑，由 Calibration 步骤手动控制输出
+    if (sys_mode != MODE_NORMAL) {
+        return;
     }
+
+    if (is_paused) return; 
 
     uint32_t now = HAL_GetTick();
 
-    // --- 处理渐变逻辑 ---
     if (ramp.active) {
         uint32_t elapsed = now - ramp.start_tick;
-        
         if (elapsed >= ramp.duration_ms) {
             current_set_speed = ramp.end_val;
             ramp.active = 0;
@@ -262,7 +317,6 @@ void Instruction_Loop(void) {
         }
     }
 
-    // --- 处理定时停止逻辑 ---
     if (stop_timer.active) {
         if ((now - stop_timer.start_tick) >= stop_timer.delay_ms) {
             current_set_speed = 0.0f;
@@ -272,11 +326,10 @@ void Instruction_Loop(void) {
         }
     }
 
-    // --- 刷新硬件输出 ---
-    // 简单限频，防止I2C过载
     static uint32_t last_update = 0;
     if (now - last_update >= 20) { 
         Apply_Speed(current_set_speed);
         last_update = now;
     }
 }
+
