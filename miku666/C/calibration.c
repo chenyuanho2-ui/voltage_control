@@ -25,8 +25,8 @@ static int temp_count = 0;
 
 // 默认出厂校准数据
 static const float default_measured[] = {
-    0.0f, 10.0f, 20.3f, 30.7f, 41.2f, 
-    51.5f, 61.9f, 72.1f, 82.4f, 92.8f
+    0.0f, 9.8f, 19.9f, 29.9f, 40.1f, 
+    50.3f, 60.4f, 70.3f, 80.4f, 90.5f
 };
 static const float default_commands[] = {
     0.0f, 10.0f, 20.0f, 30.0f, 40.0f, 
