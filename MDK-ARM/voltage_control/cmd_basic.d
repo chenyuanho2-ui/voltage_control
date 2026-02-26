@@ -1,0 +1,9 @@
+voltage_control\cmd_basic.o: ..\instruction\C\cmd_basic.c
+voltage_control\cmd_basic.o: ../instruction/H/cmd_basic.h
+voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdint.h
+voltage_control\cmd_basic.o: ../instruction/H/instruction_manager.h
+voltage_control\cmd_basic.o: ../instruction/H/cmd_ramp.h
+voltage_control\cmd_basic.o: ../instruction/H/cmd_timer.h
+voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\string.h
+voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\ctype.h

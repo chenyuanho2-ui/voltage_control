@@ -27,6 +27,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "calibration.h" // 引入校准模块
+#include "instruction.h"//引入指令模块
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,15 +51,20 @@
 /* USER CODE BEGIN PV */
 
 // MCP4725 I2C地址 (A0接地时为0x60，HAL库需要左移一位变成0xC0)
+// MCP4725 I2C 地址 (如果你用的是红色模块，通常 A0 接地，地址是 0x60)
+// HAL 库需要左移一位，即 0x60 << 1 = 0xC0
 #define MCP4725_ADDR (0x60 << 1)
+
+// 参考 Adafruit_MCP4725.h 中的定义
+#define MCP4725_CMD_WRITEDAC        0x40  // 写 DAC 寄存器命令
+#define MCP4725_CMD_WRITEDACEEPROM  0x60  // 写 DAC 寄存器和 EEPROM 命令
 
 // 串口接收相关变量
 #define RX_BUFFER_SIZE 20
-uint8_t rx_data;               // 接收单个字符
-uint8_t rx_buffer[RX_BUFFER_SIZE]; // 接收缓冲字符串
-uint8_t rx_index = 0;          // 缓冲区索引
-uint8_t cmd_received = 0;      // 接收完成标志位
-
+uint8_t rx_data;
+uint8_t rx_buffer[RX_BUFFER_SIZE];
+uint8_t rx_index = 0;
+uint8_t cmd_received = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,47 +75,52 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// 移植自 Adafruit_MCP4725::setVoltage
+// writeEEPROM: 1=写入EEPROM(掉电保存), 0=仅写入DAC(掉电不保存)
+void MCP4725_SetVoltage(uint16_t output, uint8_t writeEEPROM) {
+    uint8_t packet[3];
 
-// 设置 MCP4725 输出电压 (0-4095)
-// 对应手册中的 Fast Mode Write Command
-void MCP4725_SetOutput(uint16_t value) {
-    uint8_t i2c_data[2];
-    
-    // 限制最大值，防止溢出
-    if (value > 4095) value = 4095;
+    // 限制范围 0-4095
+    if (output > 4095) output = 4095;
 
-    // 数据格式：
-    // 第1字节：0 0 PD1 PD0 D11 D10 D9 D8 (PD=00为正常模式)
-    // 第2字节：D7 D6 D5 D4 D3 D2 D1 D0
-    i2c_data[0] = (uint8_t)((value >> 8) & 0x0F); 
-    i2c_data[1] = (uint8_t)(value & 0xFF);
+    // 1. 设置命令字节
+    if (writeEEPROM) {
+        packet[0] = MCP4725_CMD_WRITEDACEEPROM;
+    } else {
+        packet[0] = MCP4725_CMD_WRITEDAC;
+    }
 
-    // 发送 I2C 数据
-    if (HAL_I2C_Master_Transmit(&hi2c1, MCP4725_ADDR, i2c_data, 2, 100) != HAL_OK) {
-        printf("Error: I2C Transmit Failed\r\n");
+    // 2. 计算数据字节 (完全参考 Adafruit 的位操作逻辑)
+    // output / 16 等同于 output >> 4，取高8位
+    packet[1] = (uint8_t)(output / 16); 
+    // (output % 16) << 4 等同于 (output & 0x0F) << 4，取低4位并左移
+    packet[2] = (uint8_t)((output % 16) << 4);
+
+    // 3. 发送 3 个字节
+    if (HAL_I2C_Master_Transmit(&hi2c1, MCP4725_ADDR, packet, 3, 100) != HAL_OK) {
+        printf("Error: I2C Transmit Failed (NACK)\r\n");
     }
 }
 
-// 串口接收中断回调函数
+// 串口接收回调 (保持不变)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART1) {
-        if (rx_data == '\n' || rx_data == '\r') { // 收到换行符，认为指令结束
-            if (rx_index > 0) { // 确保有数据
-                rx_buffer[rx_index] = '\0'; // 添加字符串结束符
-                cmd_received = 1; // 标记指令已接收
-                rx_index = 0; // 重置索引
+        if (rx_data == '\n' || rx_data == '\r') {
+            if (rx_index > 0) {
+                rx_buffer[rx_index] = '\0';
+                cmd_received = 1;
+                rx_index = 0;
             }
         } else {
             if (rx_index < RX_BUFFER_SIZE - 1) {
-                rx_buffer[rx_index++] = rx_data; // 存入缓冲区
+                rx_buffer[rx_index++] = rx_data;
             }
         }
-        // 重新开启接收中断
         HAL_UART_Receive_IT(&huart1, &rx_data, 1);
     }
 }
 
-// 重定向 printf 到串口，方便向电脑发送信息
+// printf 重定向 (保持不变)
 int fputc(int ch, FILE *f) {
     HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 100);
     return ch;
@@ -150,6 +162,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 printf("System Started. Please enter speed (0-100):\r\n");
+
+Instruction_Init(); // <--- 2. 初始化指令模块
   
   // 开启串口接收中断
   HAL_UART_Receive_IT(&huart1, &rx_data, 1);
@@ -164,31 +178,20 @@ printf("System Started. Please enter speed (0-100):\r\n");
 
     /* USER CODE BEGIN 3 */
 	  
-	  if (cmd_received) {
-        cmd_received = 0; // 清除标志位
-        
-        int speed = atoi((char*)rx_buffer); // 将字符串转换为整数
-        
-        if (speed < 0) {
-            printf("Error: Speed cannot be negative.\r\n");
-        } 
-        else if (speed > 100) {
-            printf("Error: Speed %d out of range! Max is 100.\r\n", speed);
-        } 
-        else {
-            // 计算 DAC 数值 (0-100 映射到 0-4095)
-            // 4095 / 100 = 40.95
-            uint16_t dac_val = (uint16_t)(speed * 40.95);
-            
-            // 设置电压
-            MCP4725_SetOutput(dac_val);
-            
-            // 计算理论电压便于显示
-            float voltage = (float)speed / 100.0f * 5.0f;
-            printf("Set Speed: %d%%, DAC Val: %d, Voltage: %.2fV\r\n", speed, dac_val, voltage);
-        }
+	 // 3. 处理串口接收到的命令
+	if (cmd_received) {
+        cmd_received = 0;
+        // 直接把接收到的字符串丢给 instruction 模块处理
+        Instruction_Parse((char*)rx_buffer);
     }
+
+    // 4. 执行指令循环（处理渐变和定时）
+    Instruction_Loop();
+    
+    // 注意：不要在 while(1) 里加 HAL_Delay，这会阻塞渐变逻辑
+    // Instruction_Loop 内部已经是非阻塞设计
   }
+
   /* USER CODE END 3 */
 }
 
