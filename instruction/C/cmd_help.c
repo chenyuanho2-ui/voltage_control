@@ -46,6 +46,12 @@ uint8_t Help_Parse(char* cmd) {
         printf("   - on           : start.\r\n");
         printf("   - off           : shutdown.\r\n");
         printf("================================================\r\n\r\n");
+		
+		printf("7. Buzzer Control:\r\n");
+		printf("   - buzzer/b     : Toggle buzzer ON/OFF.\r\n");
+		printf("   - bt[time]     : Ring buzzer after [time] seconds for 1 second.\r\n");
+		printf("  Example: bt15 - ring after 15 seconds\r\n");
+		printf("================================================\r\n\r\n");
         return 1;
     }
     return 0;

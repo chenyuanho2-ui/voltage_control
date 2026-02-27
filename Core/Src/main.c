@@ -162,10 +162,10 @@ int main(void)
   MX_USART1_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
-printf("System Started. Please enter speed (0-100):\r\n");
-
-Instruction_Init(); // <--- 2. 初始化指令模块
+  
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+	printf("System Started. Please enter speed (0-100):\r\n");
+	Instruction_Init(); // <--- 2. 初始化指令模块
   
   // 开启串口接收中断
   HAL_UART_Receive_IT(&huart1, &rx_data, 1);

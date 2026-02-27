@@ -785,6 +785,16 @@
               <FileType>1</FileType>
               <FilePath>..\instruction\C\cmd_adc.c</FilePath>
             </File>
+            <File>
+              <FileName>cmd_buzzer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\instruction\H\cmd_buzzer.h</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\instruction\C\cmd_buzzer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

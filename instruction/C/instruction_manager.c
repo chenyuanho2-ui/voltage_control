@@ -25,6 +25,7 @@
 #include "cmd_direction.h"
 #include "cmd_start.h"
 #include "cmd_adc.h"
+#include "cmd_buzzer.h"
 
 static float current_speed = 0.0f;
 static SystemMode_t global_mode = MODE_NORMAL;
@@ -46,6 +47,7 @@ void Instruction_Init(void) {
     Calibration_Init(); // 初始化校准
 	Direction_Init(); // 初始化方向引脚
     Start_Init();     // 初始化启停引脚
+	Buzzer_Init();      // 初始化蜂鸣器
     Apply_Physical_Output(0);
 }
 
@@ -78,11 +80,13 @@ void Instruction_Parse(char* cmd) {
 		
         if (Help_Parse(cmd))  return; 
 		if (ADC_Parse(cmd))       return; // 新增 ADC 指令解析
+		if (Buzzer_Parse(cmd))    return; // 新增蜂鸣器解析
 		if (Start_Parse(cmd))     return; // 新增启停解析
         if (Direction_Parse(cmd)) return; // 新增方向解析
         if (Basic_Parse(cmd)) return;
         if (Ramp_Parse(cmd))  return;
         if (Timer_Parse(cmd)) return;
+		
     }
 }
 
@@ -92,6 +96,7 @@ void Instruction_Loop(void) {
         Ramp_Update(now);
         Timer_Update(now);
 		ADC_Update(now); // 新增 ADC 5Hz 打印处理
+		Buzzer_Update(now); // 新增蜂鸣器定时更新
     }
 
     // 每 20ms 刷新一次 DAC
