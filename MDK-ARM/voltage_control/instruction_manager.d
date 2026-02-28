@@ -43,3 +43,4 @@ voltage_control\instruction_manager.o: ../instruction/H/cmd_direction.h
 voltage_control\instruction_manager.o: ../instruction/H/cmd_start.h
 voltage_control\instruction_manager.o: ../instruction/H/cmd_adc.h
 voltage_control\instruction_manager.o: ../instruction/H/cmd_buzzer.h
+voltage_control\instruction_manager.o: ../instruction/H/cmd_self_test.h

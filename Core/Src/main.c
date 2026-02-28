@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include "calibration.h" // 引入校准模块
 #include "instruction.h"//引入指令模块
+#include "cmd_self_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -166,7 +167,13 @@ int main(void)
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 	printf("System Started. Please enter speed (0-100):\r\n");
 	Instruction_Init(); // <--- 2. 初始化指令模块
-  
+	
+	//////////////////是否开机自检
+	uint8_t boot_self_check = 0;
+if (boot_self_check) {
+        SelfTest_Run(); // 调用新模块的自检函数
+    }
+
   // 开启串口接收中断
   HAL_UART_Receive_IT(&huart1, &rx_data, 1);
   

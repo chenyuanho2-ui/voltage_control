@@ -776,24 +776,24 @@
               <FilePath>..\instruction\C\cmd_start.c</FilePath>
             </File>
             <File>
-              <FileName>cmd_adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\instruction\H\cmd_adc.h</FilePath>
-            </File>
-            <File>
               <FileName>cmd_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\instruction\C\cmd_adc.c</FilePath>
             </File>
             <File>
-              <FileName>cmd_buzzer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\instruction\H\cmd_buzzer.h</FilePath>
-            </File>
-            <File>
               <FileName>cmd_buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\instruction\C\cmd_buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_self_test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\instruction\H\cmd_self_test.h</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_self_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\instruction\C\cmd_self_test.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,7 +1,7 @@
 Dependencies for Project 'voltage_control', Target 'voltage_control': (DO NOT MODIFY !)
 F (startup_stm32f103xb.s)(0x69A119CD)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1"--list startup_stm32f103xb.lst --xref -o voltage_control\startup_stm32f103xb.o --depend voltage_control\startup_stm32f103xb.d)
-F (../Core/Src/main.c)(0x69A11923)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\main.o --depend voltage_control\main.d)
-I (../Core/Inc/main.h)(0x6976BE65)
+F (../Core/Src/main.c)(0x69A1440D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\main.o --depend voltage_control\main.d)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -39,9 +39,10 @@ I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../miku666/H/calibration.h)(0x6978819C)
 I (../miku666/H/instruction.h)(0x6976E678)
+I (../instruction/H/cmd_self_test.h)(0x69A13E55)
 F (../Core/Src/gpio.c)(0x69A119C9)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\gpio.o --depend voltage_control\gpio.d)
 I (../Core/Inc/gpio.h)(0x6976BE64)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -72,7 +73,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 F (../Core/Src/adc.c)(0x69A015BE)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\adc.o --depend voltage_control\adc.d)
 I (../Core/Inc/adc.h)(0x69A015BE)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -103,7 +104,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 F (../Core/Src/i2c.c)(0x6976CB42)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\i2c.o --depend voltage_control\i2c.d)
 I (../Core/Inc/i2c.h)(0x6976BE64)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -134,7 +135,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 F (../Core/Src/usart.c)(0x6976C63F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\usart.o --depend voltage_control\usart.d)
 I (../Core/Inc/usart.h)(0x6976BE64)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -164,7 +165,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 F (../Core/Src/stm32f1xx_it.c)(0x6976BE65)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\stm32f1xx_it.o --depend voltage_control\stm32f1xx_it.d)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -195,7 +196,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_it.h)(0x6976BE65)
 F (../Core/Src/stm32f1xx_hal_msp.c)(0x6976BE65)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\stm32f1xx_hal_msp.o --depend voltage_control\stm32f1xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -725,15 +726,15 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\ctype.h)(0x588B8344)
-F (..\instruction\C\instruction_manager.c)(0x69A11588)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\instruction_manager.o --depend voltage_control\instruction_manager.d)
-I (../instruction/H/instruction_manager.h)(0x69A00425)
+F (..\instruction\C\instruction_manager.c)(0x69A13E55)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\instruction_manager.o --depend voltage_control\instruction_manager.d)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (../instruction/H/cmd_basic.h)(0x69A000C8)
 I (../instruction/H/cmd_ramp.h)(0x69A000C8)
 I (../instruction/H/cmd_timer.h)(0x69A000C8)
 I (../instruction/H/cmd_cal.h)(0x69A000C8)
 I (../miku666/H/calibration.h)(0x6978819C)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -769,43 +770,44 @@ I (../instruction/H/cmd_direction.h)(0x69A00D85)
 I (../instruction/H/cmd_start.h)(0x69A00D85)
 I (../instruction/H/cmd_adc.h)(0x69A01497)
 I (../instruction/H/cmd_buzzer.h)(0x69A11589)
+I (../instruction/H/cmd_self_test.h)(0x69A13E55)
 F (..\instruction\C\cmd_basic.c)(0x69A00859)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_basic.o --depend voltage_control\cmd_basic.d)
-I (..\instruction\H\cmd_basic.h)(0x69A000C8)
+I (../instruction/H/cmd_basic.h)(0x69A000C8)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\instruction\H\instruction_manager.h)(0x69A00425)
-I (..\instruction\H\cmd_ramp.h)(0x69A000C8)
-I (..\instruction\H\cmd_timer.h)(0x69A000C8)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../instruction/H/cmd_ramp.h)(0x69A000C8)
+I (../instruction/H/cmd_timer.h)(0x69A000C8)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\ctype.h)(0x588B8344)
 F (..\instruction\C\cmd_cal.c)(0x69A00859)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_cal.o --depend voltage_control\cmd_cal.d)
-I (..\instruction\H\cmd_cal.h)(0x69A000C8)
+I (../instruction/H/cmd_cal.h)(0x69A000C8)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\instruction\H\instruction_manager.h)(0x69A00425)
-I (..\miku666\H\calibration.h)(0x6978819C)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../miku666/H/calibration.h)(0x6978819C)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 F (..\instruction\C\cmd_ramp.c)(0x69A00859)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_ramp.o --depend voltage_control\cmd_ramp.d)
-I (..\instruction\H\cmd_ramp.h)(0x69A000C8)
+I (../instruction/H/cmd_ramp.h)(0x69A000C8)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\instruction\H\instruction_manager.h)(0x69A00425)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
 I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 F (..\instruction\C\cmd_timer.c)(0x69A00859)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_timer.o --depend voltage_control\cmd_timer.d)
-I (..\instruction\H\cmd_timer.h)(0x69A000C8)
+I (../instruction/H/cmd_timer.h)(0x69A000C8)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\instruction\H\instruction_manager.h)(0x69A00425)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
 I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 F (..\instruction\C\cmd_help.c)(0x69A117C6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_help.o --depend voltage_control\cmd_help.d)
-I (..\instruction\H\cmd_help.h)(0x69A00859)
+I (../instruction/H/cmd_help.h)(0x69A00859)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\instruction\H\instruction_manager.h)(0x69A00425)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 F (..\instruction\C\cmd_direction.c)(0x69A012D0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_direction.o --depend voltage_control\cmd_direction.d)
 I (../instruction/H/cmd_direction.h)(0x69A00D85)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../instruction/H/instruction_manager.h)(0x69A00425)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -838,8 +840,8 @@ I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 F (..\instruction\C\cmd_start.c)(0x69A00D86)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_start.o --depend voltage_control\cmd_start.d)
 I (../instruction/H/cmd_start.h)(0x69A00D85)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../instruction/H/instruction_manager.h)(0x69A00425)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -869,12 +871,11 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 I (../Core/Inc/gpio.h)(0x6976BE64)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
-F (..\instruction\H\cmd_adc.h)(0x69A01497)()
 F (..\instruction\C\cmd_adc.c)(0x69A015D3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_adc.o --depend voltage_control\cmd_adc.d)
 I (../instruction/H/cmd_adc.h)(0x69A01497)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../instruction/H/instruction_manager.h)(0x69A00425)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -904,12 +905,11 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (../Core/Inc/adc.h)(0x69A015BE)
-F (..\instruction\H\cmd_buzzer.h)(0x69A11589)()
 F (..\instruction\C\cmd_buzzer.c)(0x69A117C6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_buzzer.o --depend voltage_control\cmd_buzzer.d)
 I (../instruction/H/cmd_buzzer.h)(0x69A11589)
 I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../instruction/H/instruction_manager.h)(0x69A00425)
-I (../Core/Inc/main.h)(0x6976BE65)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../Core/Inc/main.h)(0x69A13E55)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
@@ -941,3 +941,41 @@ I (../Core/Inc/gpio.h)(0x6976BE64)
 I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (D:\keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
+F (..\instruction\H\cmd_self_test.h)(0x69A13E55)()
+F (..\instruction\C\cmd_self_test.c)(0x69A14425)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../miku666/H -I ../instruction/H-I.\RTE\_voltage_control-ID:\keil5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-ID:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o voltage_control\cmd_self_test.o --depend voltage_control\cmd_self_test.d)
+I (../instruction/H/cmd_self_test.h)(0x69A13E55)
+I (../Core/Inc/main.h)(0x69A13E55)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x66D43B74)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x69A015BF)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x66D43B74)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x66D43B74)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x66D43B74)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x66D43B57)
+I (D:\keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x66D43B57)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x66D43B57)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x66D43B57)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x66D43B74)
+I (D:\keil5\ARM\ARMCC\include\stddef.h)(0x588B8344)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x66D43B74)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x66D43B74)
+I (../instruction/H/instruction_manager.h)(0x69A13F2D)
+I (../instruction/H/cmd_buzzer.h)(0x69A11589)
+I (../Core/Inc/adc.h)(0x69A015BE)
+I (../Core/Inc/i2c.h)(0x6976BE64)
+I (D:\keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (D:\keil5\ARM\ARMCC\include\string.h)(0x588B8344)

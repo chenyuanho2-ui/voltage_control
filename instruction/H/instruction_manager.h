@@ -6,7 +6,8 @@
 // 定义系统运行模式
 typedef enum {
     MODE_NORMAL = 0,
-    MODE_CALIBRATION
+    MODE_CALIBRATION,
+	MODE_SELFCHECK
 } SystemMode_t;
 
 void Instruction_Init(void);

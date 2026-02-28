@@ -26,6 +26,7 @@
 #include "cmd_start.h"
 #include "cmd_adc.h"
 #include "cmd_buzzer.h"
+#include "cmd_self_test.h"
 
 static float current_speed = 0.0f;
 static SystemMode_t global_mode = MODE_NORMAL;
@@ -48,6 +49,7 @@ void Instruction_Init(void) {
 	Direction_Init(); // 初始化方向引脚
     Start_Init();     // 初始化启停引脚
 	Buzzer_Init();      // 初始化蜂鸣器
+	
     Apply_Physical_Output(0);
 }
 
@@ -68,6 +70,7 @@ void Instruction_Parse(char* cmd) {
 
     // 2. 根据模式分发解析任务
 	if (Instruction_GetMode() == MODE_CALIBRATION) {
+		if (SelfTest_Parse(cmd)) return; // 新增自检指令解析
         Cal_Process(cmd);
     } else {
 		
@@ -83,6 +86,7 @@ void Instruction_Parse(char* cmd) {
 		if (Buzzer_Parse(cmd))    return; // 新增蜂鸣器解析
 		if (Start_Parse(cmd))     return; // 新增启停解析
         if (Direction_Parse(cmd)) return; // 新增方向解析
+		
         if (Basic_Parse(cmd)) return;
         if (Ramp_Parse(cmd))  return;
         if (Timer_Parse(cmd)) return;
