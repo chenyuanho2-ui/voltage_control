@@ -80,3 +80,4 @@ void SelfTest_Run(void) {
     Instruction_SetMode(MODE_NORMAL);
     printf("--- SELF-CHECK FINISHED ---\r\n\r\n");
 }
+
