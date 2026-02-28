@@ -86,10 +86,9 @@ void Instruction_Parse(char* cmd) {
 		if (Buzzer_Parse(cmd))    return; // 新增蜂鸣器解析
 		if (Start_Parse(cmd))     return; // 新增启停解析
         if (Direction_Parse(cmd)) return; // 新增方向解析
-		
+		if (Ramp_Parse(cmd))  return;
+		if (Timer_Parse(cmd)) return;
         if (Basic_Parse(cmd)) return;
-        if (Ramp_Parse(cmd))  return;
-        if (Timer_Parse(cmd)) return;
 		
     }
 }

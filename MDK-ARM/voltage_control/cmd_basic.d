@@ -7,3 +7,4 @@ voltage_control\cmd_basic.o: ../instruction/H/cmd_timer.h
 voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
 voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\string.h
 voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\ctype.h
+voltage_control\cmd_basic.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

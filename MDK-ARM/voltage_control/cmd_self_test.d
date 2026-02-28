@@ -31,8 +31,9 @@ voltage_control\cmd_self_test.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_h
 voltage_control\cmd_self_test.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 voltage_control\cmd_self_test.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 voltage_control\cmd_self_test.o: ../instruction/H/instruction_manager.h
+voltage_control\cmd_self_test.o: ../instruction/H/cmd_ramp.h
+voltage_control\cmd_self_test.o: ../instruction/H/cmd_timer.h
 voltage_control\cmd_self_test.o: ../instruction/H/cmd_buzzer.h
 voltage_control\cmd_self_test.o: ../Core/Inc/adc.h
-voltage_control\cmd_self_test.o: ../Core/Inc/i2c.h
 voltage_control\cmd_self_test.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
 voltage_control\cmd_self_test.o: D:\keil5\ARM\ARMCC\Bin\..\include\string.h

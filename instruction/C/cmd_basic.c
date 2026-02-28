@@ -15,26 +15,30 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <stdio.h>
 
 uint8_t Basic_Parse(char* cmd) {
-    // 紧急停止 s
+    // 1. 紧急停止 (仅限单字符 s 或 S)
     if (custom_stricmp(cmd, "s") == 0) {
         Ramp_Stop();
         Timer_Stop();
         Instruction_SetSpeed(0.0f);
+        printf(">> STOP\r\n");
         return 1;
     }
-    // 暂停/继续 p
-    if (strcasecmp(cmd, "p") == 0) {
-        // ... 原 p 指令逻辑 ...
+    
+    // 2. 暂停/继续 p
+    if (custom_stricmp(cmd, "p") == 0) {
+        // 这里可以根据需要实现暂停逻辑
         return 1;
     }
-    // 纯数值判断
-    if (isdigit(cmd[0])) {
+
+    // 3. 纯数值判断：确保字符串中不含 > 或 s 等特殊标志字符
+    if (isdigit((unsigned char)cmd[0]) && strpbrk(cmd, ">s+-") == NULL) {
         Instruction_SetSpeed(atof(cmd));
-        Ramp_Stop();
+        Ramp_Stop(); // 手动设速时停止渐变任务
         Timer_Stop();
+        printf(">> Set Speed: %.1f\r\n", Instruction_GetSpeed());
         return 1;
     }
     return 0;
