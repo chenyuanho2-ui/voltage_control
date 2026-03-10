@@ -51,7 +51,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint32_t last_heartbeat_tick = 0; // 用于心跳灯计时的变量
 // MCP4725 I2C地址 (A0接地时为0x60，HAL库需要左移一位变成0xC0)
 // MCP4725 I2C 地址 (如果你用的是红色模块，通常 A0 接地，地址是 0x60)
 // HAL 库需要左移一位，即 0x60 << 1 = 0xC0
@@ -186,7 +186,11 @@ if (boot_self_check) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  
+	  // --- 新增：心跳灯逻辑（500ms 闪烁一次） ---
+    if (HAL_GetTick() - last_heartbeat_tick >= 500) {
+        HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+        last_heartbeat_tick = HAL_GetTick();
+    }
 	 // 3. 处理串口接收到的命令
 	if (cmd_received) {
         cmd_received = 0;

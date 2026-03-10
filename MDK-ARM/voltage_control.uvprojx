@@ -786,11 +786,6 @@
               <FilePath>..\instruction\C\cmd_buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>cmd_self_test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\instruction\H\cmd_self_test.h</FilePath>
-            </File>
-            <File>
               <FileName>cmd_self_test.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\instruction\C\cmd_self_test.c</FilePath>
