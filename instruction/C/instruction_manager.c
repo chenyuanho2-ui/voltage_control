@@ -54,42 +54,73 @@ void Instruction_Init(void) {
 }
 
 void Instruction_Parse(char* cmd) {
-    printf("CMD: %s\r\n", cmd);
+    char mapped_cmd[32]; 
 
-    // 1. 处理校准模式切换
-    if (strcasecmp(cmd, "ci") == 0) {
+    // 1. 去除原指令中的回车换行符
+    char* p = strchr(cmd, '\r');
+    if(p) *p = '\0';
+    p = strchr(cmd, '\n');
+    if(p) *p = '\0';
+
+    // 2. 默认将原指令安全地拷贝进缓存
+    strncpy(mapped_cmd, cmd, sizeof(mapped_cmd) - 1);
+    mapped_cmd[sizeof(mapped_cmd) - 1] = '\0';
+
+    // 3. 构建快捷键映射表 (预留8个快捷键位置)
+    typedef struct {
+        const char* key;     // 快捷键字符
+        const char* target;  // 实际替换的指令
+    } Shortcut_t;
+    
+    // 你可以在这里极其方便地增加或修改快捷键
+    Shortcut_t shortcuts[8] = {
+        {"q", "on"},     // 快捷键1：发送 q 执行 on
+        {"w", "off"},    // 快捷键2：发送 w 执行 off
+        {"e", "bt15"},   // 快捷键3：发送 e 执行 bt15
+        {"",  ""},       // 快捷键4 (预留，格式如 {"r", "50>100t5"})
+        {"",  ""},       // 快捷键5 (预留)
+        {"",  ""},       // 快捷键6 (预留)
+        {"",  ""},       // 快捷键7 (预留)
+        {"",  ""}        // 快捷键8 (预留)
+    };
+
+    // 遍历映射表进行拦截与替换 (使用 custom_stricmp 支持大小写混用，发 Q 和 q 都可以)
+    for (int i = 0; i < 8; i++) {
+        // 如果按键被定义了，且匹配当前接收到的指令
+        if (shortcuts[i].key[0] != '\0' && custom_stricmp(mapped_cmd, shortcuts[i].key) == 0) {
+            strcpy(mapped_cmd, shortcuts[i].target); // 将内容替换为目标指令
+            break; // 匹配成功，直接跳出循环
+        }
+    }
+
+    // 打印实际执行的指令，方便调试
+    printf("CMD: %s\r\n", mapped_cmd);
+
+    // 4. 处理校准模式切换
+    if (custom_stricmp(mapped_cmd, "ci") == 0) {
         global_mode = MODE_CALIBRATION;
         Cal_Start();
         return;
     }
-    if (strcasecmp(cmd, "co") == 0) {
+    if (custom_stricmp(mapped_cmd, "co") == 0) {
         Cal_End();
         global_mode = MODE_NORMAL;
         return;
     }
 
-    // 2. 根据模式分发解析任务
-	if (Instruction_GetMode() == MODE_CALIBRATION) {
-		if (SelfTest_Parse(cmd)) return; // 新增自检指令解析
-        Cal_Process(cmd);
+    // 5. 根据模式分发解析任务 (后续全部使用 mapped_cmd 进行解析)
+    if (Instruction_GetMode() == MODE_CALIBRATION) {
+        if (SelfTest_Parse(mapped_cmd)) return; 
+        Cal_Process(mapped_cmd);
     } else {
-		
-		
-/********************************************************************************************
-		
-添加新任务
-		
-***********************************************************************************************/
-		
-        if (Help_Parse(cmd))  return; 
-		if (ADC_Parse(cmd))       return; // 新增 ADC 指令解析
-		if (Buzzer_Parse(cmd))    return; // 新增蜂鸣器解析
-		if (Start_Parse(cmd))     return; // 新增启停解析
-        if (Direction_Parse(cmd)) return; // 新增方向解析
-		if (Ramp_Parse(cmd))  return;
-		if (Timer_Parse(cmd)) return;
-        if (Basic_Parse(cmd)) return;
-		
+        if (Help_Parse(mapped_cmd))       return; 
+        if (ADC_Parse(mapped_cmd))        return; 
+        if (Buzzer_Parse(mapped_cmd))     return; 
+        if (Start_Parse(mapped_cmd))      return; 
+        if (Direction_Parse(mapped_cmd))  return; 
+        if (Ramp_Parse(mapped_cmd))       return;
+        if (Timer_Parse(mapped_cmd))      return;
+        if (Basic_Parse(mapped_cmd))      return;
     }
 }
 
